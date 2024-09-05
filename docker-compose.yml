@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  fastapi:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: fastapi_container
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    environment:
+      DATABASE_URL:sqlite+aiosqlite:///:memory:
