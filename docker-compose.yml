@@ -12,3 +12,27 @@ services:
       - ./app:/app
     environment:
       DATABASE_URL:sqlite+aiosqlite:///:memory:
+      PYTHONPATH: /app
+
+  test:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    command: pytest tests/
+    volumes:
+      - ./app:/app
+    environment:
+      DATABASE_URL:sqlite+aiosqlite:///:memory:
+      PYTHONPATH: /app
+    depends_on:
+      - fastapi
+
+  coverage:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    command: pytest --cov=app tests/
+    volumes:
+      - ./app:/app
+    environment:
+      PYTHONPATH: /app
